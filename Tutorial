@@ -1,4 +1,4 @@
-K8S Architechture
+#K8S Architechture
 
 1. K8s cluster is made of a master node
 which has many worker nodes connected to it.
@@ -16,3 +16,71 @@ which has many worker nodes connected to it.
   4. etcd - key value pair to keep the back-up of the snapshot of the state of the cluster
 
 6. Virtual network - converts all the individual nodes to act as the single machine
+
+
+
+
+
+
+#K8S Components
+1. Pod  
+  - smallest unit in k8s.
+  - abstraction layer over container.
+  - 1 app/pod
+
+each pod with the assigned IP component with each other
+this is a pvt ip provided inside the VN of the k8s
+
+Since pod can easily die so a new pod is created and a new IP is assigned to them.
+This is very incovinient so another compo called service is used.
+
+2. Service
+
+A static IP that can be attached to a pod
+lifecycle of pod and service are not connected and the pod die this will not affect the service
+
+The service should be accessible from the browser such as an app service that is inside the k8s.
+But the service is by default internal service and type of service has to be defined at the time of creation.
+
+But in reality there is no external service provided instead there is another compo called Ingress
+which forwards the requests for communication with the internal services.
+
+3. ConfigMap
+it is used for the external configurations
+when you specify the db_urls inside your app then while communcation with the pod in which that db is running you have to connect using service from your my-app service
+now since this will cost you to update the db_url and rebuild the image and again pus
+h and pull in the pod so ConfigMap compo is used to handle this overhead.
+
+
+4. Secret
+to keep the pswds and secret data in an encoded format this is compo is used.
+
+
+5. Volume
+to keep a back-up of your database pod so when the pod restarts your data will be backed-up
+since k8s doesnt manage the data persistence.
+
+
+6. Deployment
+when your pod dies the user will face the down-time
+so in order to combat this situation we mneed replicas of the app/db pods.
+and Deployment component of k8s provides this facility.
+
+replicas of the pods are not created manullay instead the 
+BLUEPRINT of the pods are created which is called the DEPLOYMENT, and the number of replicas are given.
+They are the abstraction of the pods so we mostly work with the deployments.
+
+and the service acts as a load balancer which works with the deployment.
+
+7. StatefulSet
+Deployment is used to create and manage the replicas of the pods 
+but it is generally used for creating replicas of the pods which are stateless like app-pods
+And for the stateful pods like db we use Stateful compo which can be used to manage the consistency of the data.
+
+Sometimes it is easier to manage the db outside of the k8s cluster instead of using it inside.
+
+
+
+
+
+
