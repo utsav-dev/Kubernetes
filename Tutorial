@@ -1,0 +1,18 @@
+K8S Architechture
+
+1. K8s cluster is made of a master node
+which has many worker nodes connected to it.
+
+2. Worker node has a Kubelet process running on it.
+
+3. KUBELET process - is a k8s process that enables clusters to interact with each other and also give commands to the nodes for any task to be executed.
+
+4. Worker node - has containers deployed on it
+
+5. Master node - most imp k8s processes are running
+  1. API server - entry point to the k8s cluster -> via UI/ API/ CLI
+  2. Controller Manager - whatever is happening in the cluster
+  3. Scheduler - it schedules on which node the next container to be deployed.
+  4. etcd - key value pair to keep the back-up of the snapshot of the state of the cluster
+
+6. Virtual network - converts all the individual nodes to act as the single machine
